@@ -1,0 +1,77 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dongol"
+version = "0.1.0"
+description = "DONGOL - Distributed Orchestration for Navigating Goals and Operational Logic"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "DONGOL Team"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Distributed Computing",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "pydantic>=2.0.0",
+    "orjson>=3.9.0",
+]
+
+[project.optional-dependencies]
+llm = ["openai>=1.0.0", "anthropic>=0.8.0", "groq>=0.4.0"]
+web = ["fastapi>=0.104.0", "uvicorn>=0.24.0", "websockets>=12.0"]
+performance = ["aioprocessing>=2.0.0", "uvloop>=0.19.0"]
+all = [
+    "openai>=1.0.0", "anthropic>=0.8.0", "groq>=0.4.0",
+    "fastapi>=0.104.0", "uvicorn>=0.24.0", "websockets>=12.0",
+    "aioprocessing>=2.0.0"
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+]
+
+[project.scripts]
+dongol = "cli.main:main"
+dong = "cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/dongol/dongol"
+Documentation = "https://docs.dongol.io"
+Repository = "https://github.com/dongol/dongol"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

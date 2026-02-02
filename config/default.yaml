@@ -1,0 +1,70 @@
+# DONGOL Default Configuration
+# Copy to ~/.dongol/config.yaml to customize
+
+# Core Engine Settings
+engine:
+  max_workers: 4                    # Default parallel workers
+  use_processes: false              # Use processes vs threads
+  event_loop_policy: auto           # auto | uvloop | asyncio
+  task_timeout_seconds: 300         # Default task timeout
+  
+# Chunking Engine Configuration
+chunking:
+  max_chunk_size: 1000              # Maximum chunk size in characters
+  min_chunk_size: 10                # Minimum chunk size
+  token_limit: 500                  # Default token limit for chunking
+  overlap_ratio: 0.1                # Overlap between chunks (0.0 - 1.0)
+  respect_boundaries: true          # Respect sentence/paragraph boundaries
+  
+# Parallel Execution
+parallel:
+  max_concurrent_chunks: 100        # Max chunks in flight
+  dependency_resolution: strict     # strict | loose | none
+  retry_failed_chunks: true         # Auto-retry failed chunks
+  max_retries: 3                    # Max retries per chunk
+  retry_delay_ms: 100               # Delay between retries
+  
+# Context Memory System
+context:
+  short_term_ttl_seconds: 3600      # Short-term memory TTL
+  long_term_storage: true           # Enable persistent storage
+  max_context_size_mb: 100          # Max context memory
+  compression_enabled: true         # Compress stored context
+  
+# Storage Configuration
+storage:
+  backend: sqlite                   # sqlite | sled | memory
+  path: ~/.dongol/data              # Storage path
+  database_name: dongol.db          # Database filename
+  
+  # SQLite-specific
+  sqlite:
+    journal_mode: WAL               # WAL | DELETE | TRUNCATE
+    synchronous: NORMAL             # OFF | NORMAL | FULL
+    cache_size_mb: 50               # Cache size in MB
+    
+# Plugin System
+plugins:
+  auto_load: true                   # Auto-load plugins from plugins/
+  enabled:                          # List of enabled plugins
+    - chunking
+    - execution
+    
+# Logging Configuration
+logging:
+  level: info                       # debug | info | warning | error
+  format: pretty                    # pretty | json | compact
+  output: stdout                    # stdout | stderr | file | both
+  file_path: ~/.dongol/dongol.log   # Log file path
+  max_file_size_mb: 10              # Max log file size
+  
+# CLI Configuration
+cli:
+  default_output_format: table      # table | json | yaml
+  color_enabled: true               # Enable colored output
+  
+# Performance Tuning
+performance:
+  enable_metrics: true              # Collect performance metrics
+  profile_slow_tasks: true          # Profile tasks > 1s
+  profile_threshold_ms: 1000        # Profiling threshold
