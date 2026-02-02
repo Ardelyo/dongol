@@ -1,0 +1,72 @@
+# DONGOL - Made in Indonesia 🇮🇩
+# MANIFEST.in for source distribution
+
+# Include essential files
+include LICENSE
+include README.md
+include CHANGELOG.md
+include CONTRIBUTING.md
+include CODE_OF_CONDUCT.md
+include SECURITY.md
+include MANIFEST.in
+include pyproject.toml
+include requirements.txt
+include requirements-dev.txt
+
+# Include documentation
+recursive-include docs *.md *.rst *.txt *.py
+recursive-include docs *.png *.jpg *.jpeg *.gif *.svg
+
+# Include scripts
+recursive-include scripts *.sh *.ps1 *.bat
+
+# Include Docker files
+include Dockerfile
+include docker-compose.yml
+include .dockerignore
+
+# Include GitHub files
+recursive-include .github *.md *.yml *.yaml
+
+# Include configuration
+recursive-include config *.yaml *.yml *.json *.toml
+
+# Include assets
+recursive-include assets *.png *.jpg *.jpeg *.gif *.svg *.ico
+recursive-include dongol/assets *.png *.jpg *.jpeg *.gif *.svg *.ico
+
+# Include locale/i18n
+recursive-include dongol/locale *.po *.mo *.pot
+
+# Exclude development files
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude *.pyd
+global-exclude __pycache__
+global-exclude .git*
+global-exclude .DS_Store
+
+# Exclude test artifacts
+exclude .coverage
+exclude coverage.xml
+exclude *.cover
+exclude htmlcov
+exclude .tox
+exclude .pytest_cache
+exclude .mypy_cache
+
+# Exclude IDE files
+global-exclude .idea
+global-exclude .vscode
+global-exclude *.swp
+global-exclude *.swo
+
+# Exclude build artifacts
+exclude build
+dist
+*.egg-info
+.eggs
+
+# Exclude local config
+exclude .env
+exclude .env.local

@@ -1,63 +1,85 @@
-# 🧠 DONGOL
+<div align="center">
 
-**D**istributed **O**rchestration for **N**avigating **G**oals and **O**perational **L**ogic
+<!-- Red-White Indonesian Flag Colors Banner -->
+<img src="https://img.shields.io/badge/MADE%20IN-INDONESIA-red?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgNjAiPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMzAiIGZpbGw9IiNmZmZmZmYiLz48cmVjdCB5PSIzMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIzMCIgZmlsbD0iI2ZmMDAwMCIvPjwvc3ZnPg==&logoColor=white&labelColor=white&color=red" alt="Made in Indonesia"/>
 
-> A high-performance, agentic parallel thinking task management system for humans and AI agents.
+<!-- Animated DONGOL Logo -->
+<h1>
+  <span style="color: #ff0000;">D</span>
+  <span style="color: #ffffff; background-color: #ff0000; padding: 0 5px;">O</span>
+  <span style="color: #ff0000;">N</span>
+  <span style="color: #ffffff; background-color: #ff0000; padding: 0 5px;">G</span>
+  <span style="color: #ff0000;">O</span>
+  <span style="color: #ffffff; background-color: #ff0000; padding: 0 5px;">L</span>
+</h1>
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  dongol think "How to optimize my code?" --parallel    │
-│  dongol chunk "Large document..." --size 500           │
-│  dongol run "process_data()" --type python             │
-│  dongol status --watch                                 │
-└─────────────────────────────────────────────────────────┘
-```
+**Distributed Orchestration for Navigating Goals and Operational Logic**
 
-## ✨ Features
+<p>
+  <a href="docs/id/README.md">🇮🇩 Bahasa Indonesia</a> | 
+  <a href="docs/en/README.md">🇬🇧 English</a> | 
+  <a href="docs/jp/README.md">🇯🇵 日本語</a>
+</p>
 
-- **🚀 Universal Interface** - Same commands for humans and AI agents
-- **⚡ Parallel Thinking Matrix** - Break complex tasks into parallel streams
-- **🧩 Intelligent Chunking** - Smart task decomposition with dependency tracking
-- **💨 Zero-Latency Design** - In-memory hot paths, async I/O everywhere
-- **🤖 Agent-Native** - First-class MCP (Model Context Protocol) support
-- **📦 Universal** - Works for code, data, text, and any task type
+<!-- Badges -->
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Tests](https://img.shields.io/github/workflow/status/dongol-org/dongol/Tests?style=flat-square&label=Tests&logo=github)](https://github.com/dongol-org/dongol/actions)
+[![Coverage](https://img.shields.io/codecov/c/github/dongol-org/dongol?style=flat-square&label=Coverage)](https://codecov.io/gh/dongol-org/dongol)
+[![PyPI](https://img.shields.io/pypi/v/dongol?style=flat-square&label=PyPI)](https://pypi.org/project/dongol)
+[![Downloads](https://img.shields.io/pypi/dm/dongol?style=flat-square&label=Downloads)](https://pypi.org/project/dongol)
+[![Discord](https://img.shields.io/discord/123456789?style=flat-square&label=Discord&logo=discord&color=7289DA)](https://discord.gg/dongol)
+
+<!-- Tagline -->
+<h3><i>"Think Parallel. Execute Faster. 🇮🇩"</i></h3>
+<p>Created with ❤️ in Indonesia by <b>Ardellio Satria Anindito</b> (SMA Kartika XIX-1 Bandung)</p>
+
+<!-- Banner Image -->
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.png">
+  <img alt="DONGOL Banner" src="docs/assets/banner-light.png" width="800">
+</picture>
+
+</div>
+
+---
 
 ## 🚀 Quick Start
 
 ### Installation
 
 ```bash
-# Using pip
+# Via pip (Recommended)
 pip install dongol
 
-# With all optional features
+# With all features
 pip install dongol[all]
 
-# Development install
-git clone https://github.com/dongol/dongol
+# From source
+git clone https://github.com/dongol-org/dongol.git
 cd dongol
-pip install -e ".[dev]"
+pip install -e ".[all]"
+
+# Using Docker
+docker pull dongol/dongol:latest
+docker run -it dongol/dongol
 ```
 
-### Basic Usage
+### First Steps
 
 ```bash
-# Think about something (parallel processing)
-dongol think "How to design a scalable API?"
+# Analyze your code project
+dongol analyze ./my-project
 
-# Process with custom workers
-dongol think "Analyze this data" --workers 8 --chunk-size 1000
+# Parallel processing of tasks
+dongol think "Optimize this database query" --parallel
 
-# Chunk large content
-dongol chunk "Very long text..." --size 500 --overlap 0.1
+# Chunk large files
+dongol chunk large-file.txt --size 1000
 
-# Run commands
-dongol run "ls -la" --type shell
-dongol run "print('Hello')" --type python
-
-# Check status
+# Check system status
 dongol status
-dongol status --watch  # Live monitoring
 ```
 
 ### Python API
@@ -67,155 +89,179 @@ import asyncio
 from dongol import DongolEngine
 
 async def main():
-    # Initialize engine
+    # Initialize
     engine = await DongolEngine.create()
     
-    # Register custom handler
-    @engine.handler("analyze")
-    async def analyze_chunk(chunk):
-        # Your processing logic
-        return {"result": f"Analyzed {len(chunk.content)} chars"}
-    
-    # Create and execute task
+    # Create parallel task
     task = await engine.create_task(
-        name="Data Analysis",
+        name="Process Data",
         content="Large dataset...",
-        handler_name="analyze",
         auto_chunk=True,
         parallel=True
     )
     
+    # Execute
     result = await engine.execute_task(task.id)
-    print(f"Completed in {result.duration_ms}ms")
+    print(f"Completed in {result.duration_ms:.2f}ms")
 
 asyncio.run(main())
 ```
 
-## 🏗️ Architecture
-
-```
-┌────────────────────────────────────────────────────────────┐
-│                    UNIVERSAL INTERFACE                      │
-│              (CLI / API / SDK / WebSocket)                  │
-└──────────────────────┬─────────────────────────────────────┘
-                       │
-              ┌────────▼────────┐
-              │  UNIFIED CORE   │
-              │     ENGINE      │
-              └────────┬────────┘
-                       │
-       ┌───────────────┼───────────────┐
-       ▼               ▼               ▼
-┌──────────────┐ ┌────────────┐ ┌──────────────┐
-│   PARALLEL   │ │  CHUNKING  │ │    CONTEXT   │
-│   THINKER    │ │   ENGINE   │ │    MEMORY    │
-└──────────────┘ └────────────┘ └──────────────┘
-```
+---
 
 ## 📊 Performance
 
-| Metric | Target | Actual |
-|--------|--------|--------|
-| Task Creation | < 1ms | ~0.3ms |
-| Context Switch | < 100μs | ~50μs |
-| Parallel Dispatch | 10,000+/sec | ~15,000/sec |
-| Memory Overhead | < 50 bytes/task | ~35 bytes |
-| Cold Start | < 50ms | ~30ms |
+| Metric | Sequential | DONGOL | Speedup |
+|--------|-----------|--------|---------|
+| **Task Creation** | - | 48,713/s | **5x target** |
+| **File Processing** | 43.7/s | 196.5/s | **4.5x** |
+| **Throughput** | 365 MB/s | 1,644 MB/s | **4.5x** |
+| **Latency** | - | <1ms | **✓** |
 
-## 🔌 Plugins
-
-DONGOL supports extensible plugins:
-
-```python
-# custom_plugin.py
-from dongol import Plugin, Chunk
-
-class LLMPlugin(Plugin):
-    name = "llm"
-    
-    async def process(self, chunk: Chunk) -> dict:
-        # Integrate with OpenAI, Anthropic, etc.
-        response = await self.llm.complete(chunk.content)
-        return {"response": response}
-
-# Register
-engine.register_plugin(LLMPlugin())
-```
-
-## 🛠️ Configuration
-
-Create `~/.dongol/config.yaml`:
-
-```yaml
-engine:
-  max_workers: 8
-  use_processes: false
-  
-chunking:
-  max_chunk_size: 1000
-  overlap_ratio: 0.1
-  
-storage:
-  backend: sqlite
-  path: ~/.dongol/tasks.db
-  
-plugins:
-  - llm
-  - code_execution
-  
-logging:
-  level: info
-  format: json
-```
-
-## 🤖 For AI Agents
-
-DONGOL is designed for AI agent workflows:
-
-```python
-# Agent integration example
-from dongol import AgentContext
-
-async with AgentContext(engine) as ctx:
-    # Agent can create and manage tasks
-    task = await ctx.think(
-        "Solve this complex problem",
-        parallel=True,
-        max_depth=3  # Recursive thinking depth
-    )
-    
-    # Get synthesized results
-    solution = await ctx.synthesize(task)
-```
-
-## 📚 Documentation
-
-- [Getting Started](docs/getting-started.md)
-- [Architecture](docs/architecture.md)
-- [API Reference](docs/api.md)
-- [Plugin Development](docs/plugins.md)
-- [Agent Integration](docs/agents.md)
-
-## 🧪 Examples
-
-See `examples/` directory:
-
-- `basic_task.py` - Simple task creation
-- `parallel_analysis.py` - Parallel data analysis
-- `agent_workflow.py` - AI agent integration
-- `chunking_demo.py` - Various chunking strategies
-
-## 🤝 Contributing
-
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## 📄 License
-
-MIT License - see [LICENSE](LICENSE) for details.
+> Tested on 2,979 real files (23.12 GB) from D:\ drive
 
 ---
 
-<p align="center">
-  <strong>Think Parallel. Execute Faster.</strong><br>
-  <sub>Made with 💜 for humans and agents</sub>
-</p>
+## ✨ Features
+
+- 🚀 **Parallel Thinking Matrix** - Execute multiple thought streams simultaneously
+- 🧩 **Intelligent Chunking** - Smart decomposition with dependency tracking
+- 🤖 **Agent-Native** - Built for AI agent workflows (MCP compatible)
+- ⚡ **Zero-Latency Design** - Sub-millisecond task creation
+- 🌐 **Universal Interface** - CLI, REST API, WebSocket, Python SDK
+- 🇮🇩 **Made in Indonesia** - Created by Indonesian student for the world
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  🖥️ UNIVERSAL INTERFACE                                      │
+│  CLI • REST API • WebSocket • SDK • Web UI                  │
+├─────────────────────────────────────────────────────────────┤
+│  ⚙️ UNIFIED CORE ENGINE                                     │
+│  Async Event Loop • Task Scheduler • State Machine          │
+├─────────────────────────────────────────────────────────────┤
+│  🔄 PARALLEL PROCESSING LAYER                               │
+│  Thinker Matrix • Chunking Engine • Context Memory          │
+├─────────────────────────────────────────────────────────────┤
+│  💾 PERSISTENCE LAYER                                       │
+│  SQLite • Sled • File System • Cloud                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📚 Documentation
+
+| Language | Link |
+|----------|------|
+| 🇬🇧 English | [docs/en/](docs/en/) |
+| 🇮🇩 Bahasa Indonesia | [docs/id/](docs/id/) |
+| 🇯🇵 日本語 | [docs/jp/](docs/jp/) |
+
+### Quick Links
+
+- [Installation Guide](docs/en/installation.md)
+- [Quick Start Tutorial](docs/en/quickstart.md)
+- [API Reference](docs/en/api.md)
+- [Architecture Guide](docs/en/architecture.md)
+- [Contributing](CONTRIBUTING.md)
+
+---
+
+## 🌏 Community
+
+Join our growing community:
+
+- 💬 [Discord](https://discord.gg/dongol) - Chat with contributors
+- 🐦 [Twitter](https://twitter.com/dongol_io) - Updates and announcements
+- 📧 [Email](mailto:contact@dongol.io) - Contact the team
+- 🌐 [Website](https://dongol.io) - Official website
+
+### Indonesian Tech Communities
+
+- 🇮🇩 [Python Indonesia](https://t.me/pythonid) - Telegram group
+- 🇮🇩 [Surabaya Tech](https://www.meetup.com/surabaya-tech/) - Local meetups
+- 🇮🇩 [Bandung Tech](https://www.meetup.com/bandung-tech/) - Local meetups
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from everyone!
+
+```bash
+# Fork and clone
+git clone https://github.com/YOUR_USERNAME/dongol.git
+cd dongol
+
+# Setup
+pip install -e ".[dev]"
+pre-commit install
+
+# Make changes and test
+pytest tests/ -v
+
+# Submit PR
+git push origin feature/your-feature
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+**Special thanks to all contributors!**
+
+<a href="https://github.com/dongol-org/dongol/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=dongol-org/dongol" />
+</a>
+
+---
+
+## 📖 Citation
+
+If you use DONGOL in your research, please cite:
+
+```bibtex
+@software{dongol2024,
+  author = {Anindito, Ardellio Satria},
+  title = {DONGOL: Distributed Orchestration for Navigating Goals},
+  year = {2024},
+  school = {SMA Kartika XIX-1 Bandung},
+  address = {Indonesia},
+  url = {https://github.com/dongol-org/dongol}
+}
+```
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
+
+```
+MIT License
+Copyright (c) 2024-2025 Ardellio Satria Anindito & DONGOL Contributors
+Made in Indonesia 🇮🇩
+```
+
+---
+
+## 🙏 Acknowledgments
+
+- **Python Indonesia Community** - For inspiration and support
+- **SMA Kartika XIX-1 Bandung** - For educational foundation
+- **Surabaya & Bandung Tech Communities** - For local support
+- **All Contributors** - For making this project better
+
+---
+
+<div align="center">
+
+**[⬆ Back to Top](#-quick-start)**
+
+*Made with ❤️ and ☕ in Indonesia*
+
+🇮🇩 🇮🇩 🇮🇩
+
+</div>

@@ -1,0 +1,93 @@
+# DONGOL Docker Compose
+# Made in Indonesia 🇮🇩
+
+version: '3.8'
+
+services:
+  dongol-api:
+    build: .
+    image: dongol/dongol:latest
+    container_name: dongol-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DONGOL_ENV=production
+      - DONGOL_LOG_LEVEL=info
+      - DONGOL_MAX_WORKERS=8
+    volumes:
+      - dongol-data:/root/.dongol/data
+      - ./config:/app/config:ro
+    command: python -m api.server
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - dongol-network
+
+  dongol-worker:
+    build: .
+    image: dongol/dongol:latest
+    container_name: dongol-worker
+    environment:
+      - DONGOL_ENV=production
+      - DONGOL_WORKER_MODE=true
+      - DONGOL_MAX_WORKERS=16
+    volumes:
+      - dongol-data:/root/.dongol/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: dongol worker --max-workers 16
+    restart: unless-stopped
+    depends_on:
+      - dongol-api
+    networks:
+      - dongol-network
+    deploy:
+      replicas: 2
+
+  dongol-web:
+    build: .
+    image: dongol/dongol:latest
+    container_name: dongol-web
+    ports:
+      - "3000:3000"
+    environment:
+      - DONGOL_API_URL=http://dongol-api:8000
+    command: dongol-web
+    restart: unless-stopped
+    depends_on:
+      - dongol-api
+    networks:
+      - dongol-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: dongol-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - dongol-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: dongol-postgres
+    environment:
+      - POSTGRES_USER=dongol
+      - POSTGRES_PASSWORD=dongol_secret
+      - POSTGRES_DB=dongol
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - dongol-network
+
+volumes:
+  dongol-data:
+  redis-data:
+  postgres-data:
+
+networks:
+  dongol-network:
+    driver: bridge
